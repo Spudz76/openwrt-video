@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=vice
 PKG_VERSION:=3.10
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=vice-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/vice-emu/releases
@@ -34,23 +34,48 @@ endef
 
 CONFIGURE_VARS += \
 	DOS2UNIX=true \
-	MAKEINFO=true
+	MAKEINFO=true \
+	enable_usbsid=no \
+	ac_cv_header_libusb_1_0_libusb_h=no \
+	ac_cv_lib_bsd_gethostbyname=no \
+	ac_cv_lib_bsd_gettimeofday=no \
+	ac_cv_lib_net_gethostbyname=no \
+	ac_cv_lib_nsl_gethostbyname=no \
+	ac_cv_lib_socket_gethostbyname=no \
+	ac_cv_lib_inet_gethostbyname=no \
+	ac_cv_lib_intl_dgettext=no
 
 CONFIGURE_ARGS += \
 	--enable-sdl2ui \
 	--disable-sdl1ui \
 	--disable-gtk3ui \
 	--disable-headlessui \
+	--disable-arch \
+	--disable-openmp \
 	--disable-html-docs \
+	--disable-ethernet \
+	--disable-realdevice \
+	--disable-catweasel \
+	--disable-hardsid \
+	--disable-parsid \
+	--disable-midi \
+	--with-alsa \
+	--with-resid \
+	--without-fastsid \
+	--without-sdlsound \
 	--without-pulse \
 	--without-portaudio \
 	--without-oss \
+	--without-sun \
 	--without-vorbis \
 	--without-flac \
 	--without-lame \
+	--without-static-lame \
 	--without-mpg123 \
+	--with-png \
+	--without-gif \
 	--without-libcurl \
-	--disable-ethernet
+	--without-libieee1284
 
 define Package/vice/install
 	$(INSTALL_DIR) $(1)/usr/bin
